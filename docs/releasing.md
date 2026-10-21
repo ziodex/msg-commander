@@ -1,14 +1,14 @@
 # Releases and automatic updates
 
-Public releases and the installed update feed use [ziodex/msg-commander](https://github.com/ziodex/msg-commander). The Azure DevOps remote does not run GitHub Actions. Push release commits and tags to the GitHub repository. Builds in forks must explicitly configure their own update provider before distributing an application.
+Public releases and the installed update feed use [ziodex/msg-commander](https://github.com/ziodex/msg-commander). Push release commits and tags to that GitHub repository. Forks must configure their own update provider in `electron-builder.cjs` and adjust the repository guards in `scripts/validate-release.mjs` and `scripts/publish-release.mjs` before publishing their own builds.
 
 ## User experience
 
 Installed releases check 15 seconds after startup and every six hours while running. New stable versions download in the background. A desktop notification announces the new version; a native dialog offers **Restart and install** or **Later** when the download is verified. A user who chooses Later can reopen it through **Preferences → Application updates → Check for updates** or **Help → Check for updates…**. Preferences provides access on systems where the native menu bar is hidden.
 
-The app does not restart automatically or install on an ordinary quit. It blocks installation while tracked operations are running. Once the user accepts, it blocks new desktop requests, finishes queued workspace writes, closes messaging connections and stops the backend before invoking the installer. Offline/background failures stay quiet; a manual check reports failures and allows retry. A failed download or installer check leaves the saved workspace intact.
+The app does not restart automatically or install on an ordinary quit. It blocks installation while tracked operations are running. Once the user accepts, it blocks new desktop requests, waits for pending requests, closes messaging connections, stops the backend and flushes workspace writes before invoking the installer. Background check failures stay quiet; download or installation failures can show a notification. A manual check reports failures and allows retry. The update flow does not delete or replace the saved workspace.
 
-Only stable versions are offered; automatic downgrades and prereleases are disabled. Linux updates require running the AppImage. Development builds and explicit `--user-data-dir` profiles never contact the update service. Versions distributed before this feature require one manual upgrade to an update-enabled release.
+Only stable versions are offered; automatic downgrades and prereleases are disabled. Linux updates require running the AppImage. Source-mode builds (`npm run dev` or `npm start`), packages without `app-update.yml`, and explicit `--user-data-dir` profiles never contact the update service. A local package with update metadata can use the feed even when it was not built by the release workflow. Versions distributed before this feature require one manual upgrade to an update-enabled release.
 
 ## Signing secrets
 
@@ -28,10 +28,10 @@ The workflow's `GITHUB_TOKEN` supplies release-upload access; users do not need 
 
 ## Publish a release
 
-1. Update `package.json` and the root version in `package-lock.json` together using `npm version <major.minor.patch> --no-git-tag-version`. Choose a version higher than any published version and commit it with the release changes.
-2. Push the tested commit to the GitHub repository. Keep the existing Azure remote if it is still used for development.
+1. Update `package.json` and its lockfile versions together using `npm version <major.minor.patch> --no-git-tag-version`. Set the same `<Version>` in `backend/Directory.Build.props`; npm does not update the backend version. Choose a version higher than any published version and commit it with the release changes. The separate `RuntimeFrameworkVersion` pins the self-contained .NET runtime and is not the application version.
+2. Run the [local checks](testing.md#local-regression), then push the tested commit to the GitHub repository.
 3. Create and push the matching stable tag, for example `v0.64.0`. A tag must exactly match `package.json`; prerelease tags are rejected.
-4. Watch **Publish GitHub release** in GitHub Actions. It builds and tests macOS ARM64, macOS Intel, Windows x64 and Linux x64. Missing signing secrets, failed tests, missing packages or invalid checksums prevent publication.
+4. Watch **Publish GitHub release** in GitHub Actions. The `v*.*.*` tag workflow calls the desktop workflow with release signing enabled and builds/tests macOS ARM64, macOS Intel, Windows x64 and Linux x64. Missing signing secrets, failed tests, missing packages or invalid checksums prevent publication. Normal pushes to `main` or `development` run desktop CI without publishing a release.
 5. The publishing job uploads the installers, ZIP files, blockmaps and `latest*.yml` manifests to a draft, then makes the complete release public. The macOS manifest contains both architectures. Published releases cannot be overwritten by this workflow; fixes need a higher version.
 
 No tag is created by normal development pushes. A failed publish leaves the release in draft, so users cannot discover an incomplete update. Rerunning the same workflow can replace draft assets. Release downloads include checksum verification; the updater also performs the platform's signature checks. Keep the application ID, Windows upgrade GUID and signing identity stable across versions.
@@ -42,4 +42,4 @@ The app stores `workspace.json` outside the installed application. Normal upgrad
 
 The Windows installer explicitly preserves application data. The update flow never deletes or replaces the workspace. Workspace tests verify version-1 migration, unchanged stored ciphertext and queued writes completed before shutdown. Application-identity tests verify discovery of the earlier profile.
 
-Before the first public update, install two successively versioned, signed releases on each supported system. Save a remembered connection and preferences in the first, then update using the installed app. Confirm the version changes, preferences remain, and the saved credential can reconnect. Also test Later, offline checks, an invalid download and an active operation. Unit and packaged launch checks do not replace this signed installation test. Signing credentials are not yet configured, so a complete signed upgrade cannot currently be verified locally.
+Before publishing an update, qualify two successively versioned, signed releases on each supported system. Save a remembered connection and preferences in the first, then update using the installed app. Confirm the version changes, preferences remain, and the saved credential can reconnect. Also test Later, offline checks, an invalid download and an active operation. Unit and packaged launch checks do not replace this signed installation test. Repository files do not establish whether GitHub signing secrets are configured or whether a signed upgrade has passed; record those results for the release being qualified.

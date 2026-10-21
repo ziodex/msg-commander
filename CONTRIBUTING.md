@@ -6,16 +6,20 @@ Start with the [development guide](docs/development.md) and [architecture](docs/
 
 ```sh
 npm ci
+node node_modules/electron/install.js
 npm test
 npm run build
 npm run test:desktop
+npm run format:check
 ```
 
-Keep changes focused and describe the behavior they change. Include the checks you ran and identify anything that requires a native platform, Docker or live Azure resources. The [testing guide](docs/testing.md) explains those boundaries.
+After dependency setup, `npm run check` combines the test, build and desktop steps; formatting is a separate check. Keep changes focused and describe the behavior they change. Include the checks you ran and identify anything that requires a native platform, Docker or live Azure resources. The [testing guide](docs/testing.md) explains those boundaries and Linux desktop setup.
 
 Run `npm run format` before submitting a change. Prettier formats the frontend, scripts and documentation; the .NET formatter formats backend and TestHost C# code. `npm run format:check` verifies both in CI. Code indentation uses tabs with a display width of four. YAML and generated dependency lock files retain their required or tool-owned space indentation.
 
 Use a brief single-line comment when a non-obvious constraint or decision needs explanation. Describe the reason instead of repeating the code. Keep existing license notices intact. Preserve dependency lock files; use locked restoration when validating a package.
+
+When changing dependencies, follow the [install-script policy and local adapter notes](docs/development.md#dependency-maintenance). For releases, keep the desktop and backend versions aligned as described in the [release guide](docs/releasing.md#publish-a-release).
 
 ## Code boundaries
 

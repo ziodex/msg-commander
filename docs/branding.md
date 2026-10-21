@@ -6,7 +6,7 @@ The canonical icon is `src/renderer/src/assets/msg-commander-icon.png`, a 1024 �
 
 ## Upgrade compatibility
 
-An existing workspace under the previous product's application-data folder continues to use that folder and its OS credential-store identity. Electron captures the encryption identity before ready; the visible application name becomes Msg Commander at ready. Fresh installations use the new folder and credential identity. Explicit `--user-data-dir` overrides remain isolated and bypass automatic discovery. Startup does not decrypt credentials or open the keychain.
+The app prefers `workspace.json` in the Msg Commander application-data folder. If that file is absent and the previous Service Bus Commander folder contains a workspace, it reuses the previous folder and encryption identity. Electron captures the encryption identity before ready; the visible application name becomes Msg Commander at ready. Fresh installations use the new folder and identity. Explicit `--user-data-dir` overrides bypass automatic discovery and disable update checks. Startup does not decrypt credentials or open the keychain.
 
 New exports use `msg-commander/…` format identifiers and `.msgc.json` suggested filenames. Readers also accept the previous `service-bus-commander/…` identifiers and normalize the format after validation. Body bytes, typed values, limits and duplicate-field checks remain intact. Previously exported `.sbc.json` files remain readable.
 

@@ -46,7 +46,11 @@ Event Hubs listener planning, execution and receipt retention have separate owne
 
 Main selects local paths; the renderer receives bounded metadata and preview identifiers. Imports validate format/version, duplicate fields, sizes and typed values before offering drafts or changes. Configuration imports stage connection-bound plans and require explicit review before writes.
 
-The workspace stores preferences and connection metadata separately from OS-protected credential bytes. Startup and metadata reads do not probe the credential store. Application upgrades preserve supported native workspace and file formats; see [branding and compatibility](branding.md).
+`workspace.json` stores preferences, connection metadata and encrypted credential fields. Electron's `safeStorage` encrypts remembered secrets; session-only secrets remain in memory. Startup and metadata reads do not decrypt credentials. Version-1 workspaces are read into the current version-2 model. Application upgrades preserve supported native workspace and file formats; see [branding and compatibility](branding.md).
+
+## Application updates
+
+The main process owns update checks through `ApplicationUpdates` and `electron-updater`. Before an accepted restart, it blocks new desktop requests, waits for pending requests, closes messaging connections, stops the backend and flushes workspace writes. The renderer can request a check but cannot choose an arbitrary update feed. Development and isolated test profiles do not contact the update service. See [releasing](releasing.md) for package eligibility and publication.
 
 ## Verification
 

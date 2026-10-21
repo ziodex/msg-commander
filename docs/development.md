@@ -6,10 +6,13 @@ Use Node.js 24, npm and the .NET 10 SDK. `package.json` permits Node.js 22.12 or
 
 ```sh
 npm ci
+node node_modules/electron/install.js
 npm run dev
 ```
 
-`dev` builds the backend and starts Electron/Vite. Renderer changes reload through Vite; rebuild backend changes with `npm run backend:build`. `npm start` previews the existing desktop build.
+Run commands from the repository root. The explicit Electron install step downloads the desktop runtime and matches the desktop workflow; repeat it after `npm ci` replaces `node_modules`. A dependency install alone does not complete that step for the pinned Electron package.
+
+`dev` builds the backend and starts Electron/Vite. Renderer changes reload through Vite; rebuild backend changes with `npm run backend:build`. `npm start` previews an existing desktop build and requires both `npm run backend:build` and `npm run build` to have completed. See [testing](testing.md) for headless Linux and packaged-app checks.
 
 ## Dependency maintenance
 
@@ -21,6 +24,8 @@ The stable Electron packaging and updater dependencies still pull in deprecated 
 - `vendor/temp-rimraf` supplies Node's `fs.rm`/`rmSync` for `temp`'s literal-path cleanup, preserving its callback API and retry option. It does not implement rimraf's globbing API.
 
 The adapters are direct dependencies so npm resolves their file paths from the project root. `.npmrc` sets `install-links=true` to install copies that can be included in packaged apps. Keep this setting for lockfile updates and clean installs. The dependency compatibility tests cover update-cache reuse, temporary-file cleanup and ASAR consumers. Remove the adapters and overrides when upstream dependencies no longer require them.
+
+Use an npm version that supports `allowScripts` for the strict policy check; it was verified with npm 11.17. The Electron runtime download above remains an explicit step. For NuGet, CI runs `dotnet restore backend/MsgCommander.Host --locked-mode` and `dotnet restore tests/MsgCommander.TestHost --locked-mode` before building.
 
 ## Repository layout
 
@@ -37,12 +42,15 @@ The adapters are direct dependencies so npm resolves their file paths from the p
 | `backend/MsgCommander.Host`           | Backend composition and framed protocol transport                                |
 | `tests`                               | Unit, adapter, desktop and opt-in emulator checks                                |
 | `scripts`                             | Current build, packaging, icon and emulator utilities                            |
+| `vendor`                              | Small local adapters for deprecated transitive dependencies                      |
 
 Open `backend/MsgCommander.slnx` for the .NET solution. NuGet uses the repository's public-source configuration and committed lock files.
 
 ## Authentication and local state
 
-Create connections through the app. Session-only credentials stay in memory. Remembered credentials use supported OS-protected storage and are decrypted only when required. Browsing saved connection metadata does not open the credential store. Credentials and message bodies do not belong in source control.
+Create connections through the app; saving a profile does not connect. Connection-string profiles can keep secrets in memory or save encrypted credentials. Entra device-code profiles require a tenant ID and public-client application ID. Event Grid requires Entra; IoT Hub requires its Event Hubs-compatible connection string. See [features](features.md#connections-and-authentication) for the service-specific boundaries.
+
+Remembered secrets are encrypted with Electron's OS-backed storage and saved as ciphertext in `workspace.json`. On Linux, the app requires a supported libsecret or KWallet backend and rejects plaintext fallback storage. Session-only access remains available. Browsing saved metadata does not decrypt credentials. Credentials and message bodies do not belong in source control.
 
 Local settings live in the application-data workspace. Existing installations retain their supported workspace and encryption identity; see [upgrade compatibility](branding.md). Desktop tests supply isolated temporary profiles and must never use a contributor's normal workspace.
 
@@ -51,6 +59,20 @@ Generated output is ignored under `out/`, `artifacts/`, `release/`, `test-result
 ## Interface work
 
 The application uses a warm light/dark palette, bundled IBM Plex Sans and shared Vue controls. Preserve keyboard focus, accessible names, reduced-motion behavior and resizable panes. The canonical icon is documented in [branding](branding.md); `npm run icons` updates the packaging copy.
+
+## README screenshots
+
+After completing the development setup, generate the README's light workspace and dark message-inspector images with:
+
+```sh
+npm run backend:test-build
+npm run build
+node scripts/capture-screenshots.mjs
+```
+
+The script launches Electron at 1440 × 900 with the offline TestHost, creates synthetic order messages through the interface, and writes both PNGs to `docs/images/`. It uses a temporary profile that is removed afterward; no Azure credentials or live services are needed. On headless Linux, run the capture command with the display and sandbox setup described in [testing](testing.md#linux-desktop-runners).
+
+Review both images before committing them, especially after layout, theme or message-inspector changes. Keep the README alt text accurate and use only synthetic data. These curated documentation images are tracked; ordinary test screenshots remain in ignored output folders.
 
 ## Formatting
 

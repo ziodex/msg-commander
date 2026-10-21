@@ -2,7 +2,7 @@
 
 This fixture tests the production HTTP adapter over real sockets. It implements the specific namespace, publishing and pull-delivery responses exercised by the tests; it is not an Azure Event Grid emulator and does not qualify service parity, TLS, Entra sign-in, RBAC, cloud provisioning or push delivery.
 
-The test-only transport redirects the two expected Azure authorities to this loopback fixture. Production endpoint validation, HTTPS, resource scoping, request versions and redirect/retry policy remain unchanged. Authentication uses a synthetic token. The fixture is separate from the Service Bus and Event Hubs emulators.
+The test-only transport redirects the two expected Azure authorities to this loopback fixture. Production endpoint validation, HTTPS, resource scoping, request versions and redirect/retry policy remain unchanged. Authentication uses a synthetic token. The fixture is separate from the Service Bus and Event Hubs emulators. Complete [development setup](../../../docs/development.md#requirements) and run these commands from the repository root:
 
 ```powershell
 docker compose -f tests/emulator/event-grid/compose.yaml up -d
@@ -17,4 +17,5 @@ The fixture preserves raw JSON slices to avoid rounding event data. Its pull rou
 
 ```powershell
 docker compose -f tests/emulator/event-grid/compose.yaml down
+Remove-Item Env:COMMANDER_EVENTGRID_DOCKER
 ```
