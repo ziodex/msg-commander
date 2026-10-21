@@ -1,0 +1,36 @@
+name: Publish GitHub release
+on:
+  push:
+    tags: ['v*.*.*']
+permissions:
+  contents: read
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  build:
+    uses: ./.github/workflows/desktop.yml
+    with:
+      release: true
+    secrets: inherit
+  publish:
+    needs: build
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '24', cache: npm }
+      - run: npm ci --ignore-scripts
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: Msg-Commander-*
+          path: release-input
+      - name: Verify packages and combine update manifests
+        run: node scripts/prepare-release.mjs release-input release-assets
+      - name: Publish the complete release
+        run: node scripts/publish-release.mjs release-assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}

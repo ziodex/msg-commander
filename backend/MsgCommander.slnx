@@ -1,0 +1,8 @@
+<Solution>
+	<Project Path="../tests/MsgCommander.TestHost/MsgCommander.TestHost.csproj" />
+	<Project Path="MsgCommander.Application/MsgCommander.Application.csproj" />
+	<Project Path="MsgCommander.Contracts/MsgCommander.Contracts.csproj" />
+	<Project Path="MsgCommander.Domain/MsgCommander.Domain.csproj" />
+	<Project Path="MsgCommander.Host/MsgCommander.Host.csproj" />
+	<Project Path="MsgCommander.Infrastructure/MsgCommander.Infrastructure.csproj" />
+</Solution>

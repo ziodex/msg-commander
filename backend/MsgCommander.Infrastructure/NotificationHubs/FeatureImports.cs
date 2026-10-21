@@ -1,0 +1,15 @@
+global using MsgCommander.Application.NotificationHubs.Management;
+global using MsgCommander.Application.NotificationHubs.Gateways;
+global using MsgCommander.Application.NotificationHubs.Credentials;
+global using MsgCommander.Contracts.NotificationHubs.Management;
+global using MsgCommander.Contracts.NotificationHubs.Credentials;
+global using MsgCommander.Domain.NotificationHubs;
+global using MsgCommander.Contracts.NotificationHubs.Registrations;
+global using MsgCommander.Application.NotificationHubs.Registrations;
+global using MsgCommander.Contracts.NotificationHubs.RegistrationFiles;
+global using MsgCommander.Application.NotificationHubs.RegistrationFiles;
+global using MsgCommander.Contracts.NotificationHubs.Jobs;
+global using MsgCommander.Application.NotificationHubs.Jobs;
+global using MsgCommander.Contracts.NotificationHubs.Notifications;
+global using MsgCommander.Application.NotificationHubs.Notifications;
+global using MsgCommander.Infrastructure.NotificationHubs.Registrations;

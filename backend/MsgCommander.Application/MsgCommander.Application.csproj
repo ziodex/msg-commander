@@ -1,0 +1,6 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	<ItemGroup>
+		<ProjectReference Include="../MsgCommander.Domain/MsgCommander.Domain.csproj" />
+		<ProjectReference Include="../MsgCommander.Contracts/MsgCommander.Contracts.csproj" />
+	</ItemGroup>
+</Project>

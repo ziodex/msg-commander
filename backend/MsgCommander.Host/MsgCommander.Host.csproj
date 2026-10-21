@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<AssemblyName>MsgCommander.Host</AssemblyName>
+	</PropertyGroup>
+	<ItemGroup>
+		<ProjectReference Include="../MsgCommander.Application/MsgCommander.Application.csproj" />
+		<ProjectReference Include="../MsgCommander.Infrastructure/MsgCommander.Infrastructure.csproj" />
+	</ItemGroup>
+</Project>

@@ -1,0 +1,4 @@
+* text=auto eol=lf
+
+# Encoding and compression fixtures must retain their exact bytes on every platform.
+tests/fixtures/body-tools/* -text

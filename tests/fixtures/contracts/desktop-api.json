@@ -1,0 +1,789 @@
+{
+	"sourceCommit": "7b20d8c4fe8d80113496fd08d3a9d06e51daaf5c",
+	"methods": {
+		"acceptSession": {
+			"channel": "commander:session-accept",
+			"parameters": 1
+		},
+		"applyMessagingConfiguration": {
+			"channel": "commander:messaging-config-apply",
+			"parameters": 1
+		},
+		"applyNotificationHubConfiguration": {
+			"channel": "commander:nh-config-apply",
+			"parameters": 1
+		},
+		"applyNotificationHubRegistrationImport": {
+			"channel": "commander:nh-registration-files-apply",
+			"parameters": 1
+		},
+		"applyRelayConfiguration": {
+			"channel": "commander:relay-config-apply",
+			"parameters": 1
+		},
+		"bootstrap": {
+			"channel": "commander:bootstrap",
+			"parameters": 0
+		},
+		"bulkPurgeMessages": {
+			"channel": "commander:sb-bulk-purge",
+			"parameters": 1
+		},
+		"cancelOperation": {
+			"channel": "commander:cancel",
+			"parameters": 1
+		},
+		"cancelScheduledMessages": {
+			"channel": "commander:sb-scheduled-cancel",
+			"parameters": 1
+		},
+		"changeEventAdminResource": {
+			"channel": "commander:eh-admin-change",
+			"parameters": 1
+		},
+		"changeEventGrid": {
+			"channel": "commander:eg-admin-change",
+			"parameters": 1
+		},
+		"changeNotificationHubCredentials": {
+			"channel": "commander:nh-credentials-change",
+			"parameters": 1
+		},
+		"changeNotificationHubRegistration": {
+			"channel": "commander:nh-registrations-change",
+			"parameters": 1
+		},
+		"changeNotificationHubResource": {
+			"channel": "commander:nh-change",
+			"parameters": 1
+		},
+		"changeRelayResource": {
+			"channel": "commander:relay-change",
+			"parameters": 1
+		},
+		"clearReceivedEventGrid": {
+			"channel": "commander:eg-pull-clear",
+			"parameters": 1
+		},
+		"closeReceiver": {
+			"channel": "commander:sb-close-receiver",
+			"parameters": 1
+		},
+		"closeSessionScan": {
+			"channel": "commander:sessions-close",
+			"parameters": 1
+		},
+		"connectAuthorization": {
+			"channel": "commander:authorization-connect",
+			"parameters": 1
+		},
+		"connectEventGrid": {
+			"channel": "commander:eg-connect",
+			"parameters": 1
+		},
+		"connectEventHubs": {
+			"channel": "commander:eh-connect",
+			"parameters": 1
+		},
+		"connectIotHub": {
+			"channel": "commander:iot-connect",
+			"parameters": 1
+		},
+		"connectNamespace": {
+			"channel": "commander:sb-connect",
+			"parameters": 1
+		},
+		"connectNotificationHub": {
+			"channel": "commander:nh-connect",
+			"parameters": 1
+		},
+		"connectNotificationHubRegistrations": {
+			"channel": "commander:nh-registrations-connect",
+			"parameters": 1
+		},
+		"connectNotificationSender": {
+			"channel": "commander:nh-notifications-connect",
+			"parameters": 1
+		},
+		"connectRelay": {
+			"channel": "commander:relay-connect",
+			"parameters": 1
+		},
+		"convertBody": {
+			"channel": "commander:body-codec",
+			"parameters": 1
+		},
+		"copyAuthorizationKey": {
+			"channel": "commander:authorization-copy",
+			"parameters": 1
+		},
+		"copyEventHubUrl": {
+			"channel": "commander:eh-copy-url",
+			"parameters": 1
+		},
+		"copyEventPolicyKey": {
+			"channel": "commander:eh-admin-copy",
+			"parameters": 1
+		},
+		"copyNotificationHubKey": {
+			"channel": "commander:nh-copy-key",
+			"parameters": 1
+		},
+		"copyRelayEndpoint": {
+			"channel": "commander:relay-copy-endpoint",
+			"parameters": 1
+		},
+		"copyRelayKey": {
+			"channel": "commander:relay-copy-key",
+			"parameters": 1
+		},
+		"createAuthorizationRule": {
+			"channel": "commander:authorization-create",
+			"parameters": 1
+		},
+		"createEntity": {
+			"channel": "commander:sb-entity-create",
+			"parameters": 1
+		},
+		"createRule": {
+			"channel": "commander:sb-rule-create",
+			"parameters": 1
+		},
+		"deleteAuthorizationRule": {
+			"channel": "commander:authorization-delete",
+			"parameters": 1
+		},
+		"deleteEntity": {
+			"channel": "commander:sb-entity-delete",
+			"parameters": 1
+		},
+		"deleteRule": {
+			"channel": "commander:sb-rule-delete",
+			"parameters": 1
+		},
+		"discardCodecBody": {
+			"channel": "commander:body-codec-discard",
+			"parameters": 1
+		},
+		"discardImport": {
+			"channel": "commander:files-discard",
+			"parameters": 1
+		},
+		"discardImportedEvents": {
+			"channel": "commander:eh-files-discard",
+			"parameters": 1
+		},
+		"discardNotificationHubCredential": {
+			"channel": "commander:nh-credentials-discard",
+			"parameters": 1
+		},
+		"discardNotificationHubJob": {
+			"channel": "commander:nh-jobs-discard",
+			"parameters": 1
+		},
+		"disconnectEventGrid": {
+			"channel": "commander:eg-disconnect",
+			"parameters": 1
+		},
+		"disconnectEventHubs": {
+			"channel": "commander:eh-disconnect",
+			"parameters": 1
+		},
+		"disconnectNamespace": {
+			"channel": "commander:sb-disconnect",
+			"parameters": 1
+		},
+		"disconnectNotificationHub": {
+			"channel": "commander:nh-disconnect",
+			"parameters": 1
+		},
+		"disconnectNotificationHubRegistrations": {
+			"channel": "commander:nh-registrations-disconnect",
+			"parameters": 1
+		},
+		"disconnectNotificationSender": {
+			"channel": "commander:nh-notifications-disconnect",
+			"parameters": 1
+		},
+		"disconnectRelay": {
+			"channel": "commander:relay-disconnect",
+			"parameters": 1
+		},
+		"executeBulkEntities": {
+			"channel": "commander:sb-bulk-entity-execute",
+			"parameters": 1
+		},
+		"executeEntityCopy": {
+			"channel": "commander:entity-copy-execute",
+			"parameters": 1
+		},
+		"exportEvents": {
+			"channel": "commander:eh-files-export",
+			"parameters": 1
+		},
+		"exportMessages": {
+			"channel": "commander:files-export",
+			"parameters": 1
+		},
+		"exportMessagingConfiguration": {
+			"channel": "commander:messaging-config-export",
+			"parameters": 1
+		},
+		"exportNotificationHubConfiguration": {
+			"channel": "commander:nh-config-export",
+			"parameters": 1
+		},
+		"exportNotificationHubRegistrations": {
+			"channel": "commander:nh-registration-files-export",
+			"parameters": 1
+		},
+		"exportOperationLog": {
+			"channel": "commander:operation-log",
+			"parameters": 1
+		},
+		"exportRelayConfiguration": {
+			"channel": "commander:relay-config-export",
+			"parameters": 1
+		},
+		"finishEntityRename": {
+			"channel": "commander:entity-rename-finish",
+			"parameters": 1
+		},
+		"forgetDeferredReference": {
+			"channel": "commander:sb-deferred-forget",
+			"parameters": 1
+		},
+		"getAuthorizationRule": {
+			"channel": "commander:authorization-get",
+			"parameters": 1
+		},
+		"getBulkEntityResult": {
+			"channel": "commander:sb-bulk-entity-result",
+			"parameters": 1
+		},
+		"getBulkPurgeResult": {
+			"channel": "commander:sb-bulk-purge-result",
+			"parameters": 1
+		},
+		"getEntity": {
+			"channel": "commander:sb-entity",
+			"parameters": 1
+		},
+		"getEntityConfiguration": {
+			"channel": "commander:sb-entity-config",
+			"parameters": 1
+		},
+		"getEntityCopyResult": {
+			"channel": "commander:entity-copy-result",
+			"parameters": 1
+		},
+		"getEntityRenameResult": {
+			"channel": "commander:entity-rename-result",
+			"parameters": 1
+		},
+		"getEventAdminContext": {
+			"channel": "commander:eh-admin-context",
+			"parameters": 1
+		},
+		"getEventAdminResource": {
+			"channel": "commander:eh-admin-get",
+			"parameters": 1
+		},
+		"getEventAdminResult": {
+			"channel": "commander:eh-admin-result",
+			"parameters": 1
+		},
+		"getEventGrid": {
+			"channel": "commander:eg-get",
+			"parameters": 1
+		},
+		"getEventGridAdmin": {
+			"channel": "commander:eg-admin-get",
+			"parameters": 1
+		},
+		"getEventGridAdminResult": {
+			"channel": "commander:eg-admin-result",
+			"parameters": 1
+		},
+		"getEventGridPublishResult": {
+			"channel": "commander:eg-publish-result",
+			"parameters": 1
+		},
+		"getEventGridPullResult": {
+			"channel": "commander:eg-pull-result",
+			"parameters": 1
+		},
+		"getEventHub": {
+			"channel": "commander:eh-hub",
+			"parameters": 1
+		},
+		"getEventHubPartition": {
+			"channel": "commander:eh-partition",
+			"parameters": 1
+		},
+		"getEventHubReadResult": {
+			"channel": "commander:eh-read-result",
+			"parameters": 1
+		},
+		"getEventHubSendResult": {
+			"channel": "commander:eh-send-result",
+			"parameters": 1
+		},
+		"getEventHubStatistics": {
+			"channel": "commander:eh-statistics",
+			"parameters": 1
+		},
+		"getEventListenerResult": {
+			"channel": "commander:eh-listen-result",
+			"parameters": 1
+		},
+		"getHybridResult": {
+			"channel": "commander:hybrid-result",
+			"parameters": 1
+		},
+		"getListener": {
+			"channel": "commander:listener-status",
+			"parameters": 1
+		},
+		"getMessagingConfigurationResult": {
+			"channel": "commander:messaging-config-result",
+			"parameters": 1
+		},
+		"getNotificationHubConfigurationResult": {
+			"channel": "commander:nh-config-result",
+			"parameters": 1
+		},
+		"getNotificationHubCredentials": {
+			"channel": "commander:nh-credentials-get",
+			"parameters": 1
+		},
+		"getNotificationHubJob": {
+			"channel": "commander:nh-jobs-get",
+			"parameters": 1
+		},
+		"getNotificationHubJobResult": {
+			"channel": "commander:nh-jobs-result",
+			"parameters": 1
+		},
+		"getNotificationHubRegistration": {
+			"channel": "commander:nh-registrations-get",
+			"parameters": 1
+		},
+		"getNotificationHubRegistrationImportResult": {
+			"channel": "commander:nh-registration-files-result",
+			"parameters": 1
+		},
+		"getNotificationHubRegistrationResult": {
+			"channel": "commander:nh-registrations-result",
+			"parameters": 1
+		},
+		"getNotificationHubResource": {
+			"channel": "commander:nh-get",
+			"parameters": 1
+		},
+		"getNotificationHubResult": {
+			"channel": "commander:nh-result",
+			"parameters": 1
+		},
+		"getOperationOutcome": {
+			"channel": "commander:sb-outcome",
+			"parameters": 1
+		},
+		"getPurgeResult": {
+			"channel": "commander:sb-purge-result",
+			"parameters": 1
+		},
+		"getReceiveDeleteResult": {
+			"channel": "commander:sb-receive-delete-result",
+			"parameters": 1
+		},
+		"getRelayConfigurationResult": {
+			"channel": "commander:relay-config-result",
+			"parameters": 1
+		},
+		"getRelayResource": {
+			"channel": "commander:relay-get",
+			"parameters": 1
+		},
+		"getRelayResult": {
+			"channel": "commander:relay-result",
+			"parameters": 1
+		},
+		"getResendResult": {
+			"channel": "commander:sb-dlq-resend-result",
+			"parameters": 1
+		},
+		"getRule": {
+			"channel": "commander:sb-rule",
+			"parameters": 1
+		},
+		"getSessionState": {
+			"channel": "commander:session-state",
+			"parameters": 1
+		},
+		"getTestJobResult": {
+			"channel": "commander:sb-test-result",
+			"parameters": 1
+		},
+		"getTestNotificationResult": {
+			"channel": "commander:nh-notifications-result",
+			"parameters": 1
+		},
+		"importEvents": {
+			"channel": "commander:eh-files-import",
+			"parameters": 1
+		},
+		"importMessages": {
+			"channel": "commander:files-import",
+			"parameters": 1
+		},
+		"importMessagingConfiguration": {
+			"channel": "commander:messaging-config-import",
+			"parameters": 1
+		},
+		"importNotificationHubConfiguration": {
+			"channel": "commander:nh-config-import",
+			"parameters": 1
+		},
+		"importNotificationHubCredential": {
+			"channel": "commander:nh-credentials-import",
+			"parameters": 1
+		},
+		"importNotificationHubRegistrations": {
+			"channel": "commander:nh-registration-files-import",
+			"parameters": 1
+		},
+		"importRelayConfiguration": {
+			"channel": "commander:relay-config-import",
+			"parameters": 1
+		},
+		"inspectEvent": {
+			"channel": "commander:eh-inspect",
+			"parameters": 1
+		},
+		"inspectMessage": {
+			"channel": "commander:sb-inspect",
+			"parameters": 1
+		},
+		"inspectNotificationHubRegistration": {
+			"channel": "commander:nh-registrations-inspect",
+			"parameters": 1
+		},
+		"inspectNotificationHubRegistrationImport": {
+			"channel": "commander:nh-registration-files-inspect",
+			"parameters": 1
+		},
+		"inspectReceivedEventGrid": {
+			"channel": "commander:eg-pull-inspect",
+			"parameters": 1
+		},
+		"listAuthorizationRules": {
+			"channel": "commander:authorization-list",
+			"parameters": 1
+		},
+		"listDeferredReferences": {
+			"channel": "commander:sb-deferred-list",
+			"parameters": 1
+		},
+		"listDeliveries": {
+			"channel": "commander:sb-deliveries",
+			"parameters": 1
+		},
+		"listenEventHub": {
+			"channel": "commander:eh-listen",
+			"parameters": 1
+		},
+		"listEntities": {
+			"channel": "commander:sb-list",
+			"parameters": 1
+		},
+		"listEventGrid": {
+			"channel": "commander:eg-list",
+			"parameters": 1
+		},
+		"listEventHubs": {
+			"channel": "commander:eh-list",
+			"parameters": 1
+		},
+		"listEventPolicies": {
+			"channel": "commander:eh-admin-policies",
+			"parameters": 1
+		},
+		"listNotificationHub": {
+			"channel": "commander:nh-list",
+			"parameters": 1
+		},
+		"listNotificationHubJobs": {
+			"channel": "commander:nh-jobs-list",
+			"parameters": 1
+		},
+		"listReceivedEventGrid": {
+			"channel": "commander:eg-pull-list",
+			"parameters": 1
+		},
+		"listRelay": {
+			"channel": "commander:relay-list",
+			"parameters": 1
+		},
+		"listRules": {
+			"channel": "commander:sb-rules",
+			"parameters": 1
+		},
+		"listRuntimeCounts": {
+			"channel": "commander:sb-runtime",
+			"parameters": 1
+		},
+		"listScheduledMessages": {
+			"channel": "commander:sb-scheduled",
+			"parameters": 1
+		},
+		"listSessions": {
+			"channel": "commander:sessions",
+			"parameters": 1
+		},
+		"loadEventCheckpoint": {
+			"channel": "commander:eh-checkpoint-load",
+			"parameters": 1
+		},
+		"loadImportedEvents": {
+			"channel": "commander:eh-files-load",
+			"parameters": 1
+		},
+		"loadImportedMessages": {
+			"channel": "commander:files-load",
+			"parameters": 1
+		},
+		"openCodecBody": {
+			"channel": "commander:body-codec-open",
+			"parameters": 1
+		},
+		"openDeviceLogin": {
+			"channel": "commander:login",
+			"parameters": 0
+		},
+		"peekMessages": {
+			"channel": "commander:sb-peek",
+			"parameters": 1
+		},
+		"previewBulkEntities": {
+			"channel": "commander:sb-bulk-entity-preview",
+			"parameters": 1
+		},
+		"previewBulkPurge": {
+			"channel": "commander:sb-bulk-purge-preview",
+			"parameters": 1
+		},
+		"previewEntityCopy": {
+			"channel": "commander:entity-copy-preview",
+			"parameters": 1
+		},
+		"previewNotificationHubJob": {
+			"channel": "commander:nh-jobs-preview",
+			"parameters": 1
+		},
+		"previewTestPayload": {
+			"channel": "commander:test-payload-preview",
+			"parameters": 1
+		},
+		"publishEventGrid": {
+			"channel": "commander:eg-publish",
+			"parameters": 1
+		},
+		"purgeMessages": {
+			"channel": "commander:sb-purge",
+			"parameters": 1
+		},
+		"queryNotificationHubRegistrations": {
+			"channel": "commander:nh-registrations-query",
+			"parameters": 1
+		},
+		"readEventBody": {
+			"channel": "commander:eh-body",
+			"parameters": 1
+		},
+		"readEventHub": {
+			"channel": "commander:eh-read",
+			"parameters": 1
+		},
+		"readMessageBody": {
+			"channel": "commander:sb-body",
+			"parameters": 1
+		},
+		"receiveDelete": {
+			"channel": "commander:sb-receive-delete",
+			"parameters": 1
+		},
+		"receiveEventGrid": {
+			"channel": "commander:eg-pull-receive",
+			"parameters": 1
+		},
+		"receiveMessages": {
+			"channel": "commander:sb-receive",
+			"parameters": 1
+		},
+		"regenerateAuthorizationKey": {
+			"channel": "commander:authorization-regenerate",
+			"parameters": 1
+		},
+		"releaseSession": {
+			"channel": "commander:session-release",
+			"parameters": 1
+		},
+		"removeProfile": {
+			"channel": "commander:remove-profile",
+			"parameters": 1
+		},
+		"renewSessionLock": {
+			"channel": "commander:session-renew",
+			"parameters": 1
+		},
+		"replayMessage": {
+			"channel": "commander:sb-replay",
+			"parameters": 1
+		},
+		"resendDeadLetters": {
+			"channel": "commander:sb-dlq-resend",
+			"parameters": 1
+		},
+		"resendSnapshot": {
+			"channel": "commander:sb-snapshot-resend",
+			"parameters": 1
+		},
+		"resetHybrid": {
+			"channel": "commander:hybrid-reset",
+			"parameters": 1
+		},
+		"restartBackend": {
+			"channel": "commander:restart",
+			"parameters": 0
+		},
+		"revealAuthorizationKey": {
+			"channel": "commander:authorization-key",
+			"parameters": 1
+		},
+		"revealEventPolicyKey": {
+			"channel": "commander:eh-admin-key",
+			"parameters": 1
+		},
+		"revealNotificationHubKey": {
+			"channel": "commander:nh-key",
+			"parameters": 1
+		},
+		"revealRelayKey": {
+			"channel": "commander:relay-key",
+			"parameters": 1
+		},
+		"reviewEntityRename": {
+			"channel": "commander:entity-rename-review",
+			"parameters": 1
+		},
+		"runHybrid": {
+			"channel": "commander:hybrid-run",
+			"parameters": 1
+		},
+		"runOperation": {
+			"channel": "commander:run",
+			"parameters": 1
+		},
+		"runTestJob": {
+			"channel": "commander:sb-test-run",
+			"parameters": 1
+		},
+		"saveCodecBody": {
+			"channel": "commander:body-codec-save",
+			"parameters": 1
+		},
+		"saveDrafts": {
+			"channel": "commander:files-save-drafts",
+			"parameters": 1
+		},
+		"saveEventCheckpoint": {
+			"channel": "commander:eh-checkpoint-save",
+			"parameters": 1
+		},
+		"saveEventDrafts": {
+			"channel": "commander:eh-files-drafts",
+			"parameters": 1
+		},
+		"savePreferences": {
+			"channel": "commander:preferences",
+			"parameters": 1
+		},
+		"saveProfile": {
+			"channel": "commander:save-profile",
+			"parameters": 1
+		},
+		"saveResendReceipt": {
+			"channel": "commander:sb-dlq-resend-save",
+			"parameters": 1
+		},
+		"sendBatch": {
+			"channel": "commander:sb-send-batch",
+			"parameters": 1
+		},
+		"sendEventHub": {
+			"channel": "commander:eh-send",
+			"parameters": 1
+		},
+		"sendMessage": {
+			"channel": "commander:sb-send",
+			"parameters": 1
+		},
+		"sendTestNotification": {
+			"channel": "commander:nh-notifications-send",
+			"parameters": 1
+		},
+		"setInterfaceScale": {
+			"channel": "commander:interface-scale",
+			"parameters": 1
+		},
+		"setSessionState": {
+			"channel": "commander:session-state-set",
+			"parameters": 1
+		},
+		"setTheme": {
+			"channel": "commander:theme",
+			"parameters": 1
+		},
+		"settleEventGrid": {
+			"channel": "commander:eg-pull-settle",
+			"parameters": 1
+		},
+		"settleListener": {
+			"channel": "commander:listener-settle",
+			"parameters": 1
+		},
+		"settleMessage": {
+			"channel": "commander:sb-settle",
+			"parameters": 1
+		},
+		"startListener": {
+			"channel": "commander:listener-start",
+			"parameters": 1
+		},
+		"stopListener": {
+			"channel": "commander:listener-stop",
+			"parameters": 1
+		},
+		"submitNotificationHubJob": {
+			"channel": "commander:nh-jobs-submit",
+			"parameters": 1
+		},
+		"updateAuthorizationRule": {
+			"channel": "commander:authorization-update",
+			"parameters": 1
+		},
+		"updateEntity": {
+			"channel": "commander:sb-entity-update",
+			"parameters": 1
+		},
+		"updateRule": {
+			"channel": "commander:sb-rule-update",
+			"parameters": 1
+		},
+		"checkForUpdates": {
+			"channel": "commander:updates-check",
+			"parameters": 0
+		}
+	}
+}

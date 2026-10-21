@@ -1,0 +1,17 @@
+global using MsgCommander.Application.Common;
+global using MsgCommander.Application.AccessPolicies;
+global using MsgCommander.Application.ServiceBus.Entities;
+global using MsgCommander.Application.ServiceBus.Rules;
+global using MsgCommander.Application.ServiceBus.Authorization;
+global using MsgCommander.Application.ServiceBus.Gateways;
+global using MsgCommander.Application.ServiceBus.Messages;
+global using MsgCommander.Application.ServiceBus.TestJobs;
+global using MsgCommander.Contracts.Connections;
+global using MsgCommander.Contracts.Common;
+global using MsgCommander.Contracts.ServiceBus.Entities;
+global using MsgCommander.Contracts.ServiceBus.Rules;
+global using MsgCommander.Contracts.ServiceBus.Authorization;
+global using MsgCommander.Contracts.AccessPolicies;
+global using MsgCommander.Infrastructure.ServiceBus.Messages;
+global using MsgCommander.Infrastructure.ServiceBus.Rules;
+global using MsgCommander.Infrastructure.ServiceBus.TestJobs;

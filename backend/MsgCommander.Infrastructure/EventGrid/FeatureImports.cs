@@ -1,0 +1,10 @@
+global using MsgCommander.Application.EventGrid.Administration;
+global using MsgCommander.Application.EventGrid.Browsing;
+global using MsgCommander.Application.EventGrid.Gateways;
+global using MsgCommander.Application.EventGrid.Publishing;
+global using MsgCommander.Application.EventGrid.Pulling;
+global using MsgCommander.Contracts.EventGrid.Administration;
+global using MsgCommander.Contracts.EventGrid.Browsing;
+global using MsgCommander.Contracts.EventGrid.Publishing;
+global using MsgCommander.Contracts.EventGrid.Pulling;
+global using MsgCommander.Domain.EventGrid;

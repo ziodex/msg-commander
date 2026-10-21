@@ -1,0 +1,113 @@
+name: Desktop build and workflows
+on:
+  push:
+    branches: [main, development]
+  pull_request:
+  workflow_dispatch:
+  workflow_call:
+    inputs:
+      release:
+        type: boolean
+        default: false
+    secrets:
+      MAC_CSC_LINK:
+        required: false
+      MAC_CSC_KEY_PASSWORD:
+        required: false
+      APPLE_ID:
+        required: false
+      APPLE_APP_SPECIFIC_PASSWORD:
+        required: false
+      APPLE_TEAM_ID:
+        required: false
+      WINDOWS_CSC_LINK:
+        required: false
+      WINDOWS_CSC_KEY_PASSWORD:
+        required: false
+permissions:
+  contents: read
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { os: macos-15, target: darwin-arm64 }
+          - { os: macos-15-intel, target: darwin-x64 }
+          - { os: ubuntu-24.04, target: linux-x64 }
+          - { os: windows-2025, target: win32-x64 }
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '24', cache: npm }
+      - uses: actions/setup-dotnet@v4
+        with: { dotnet-version: '10.0.x' }
+      - run: npm ci
+      - name: Validate release signing credentials and tag
+        if: inputs.release
+        run: node scripts/validate-release.mjs
+        env:
+          MAC_CSC_LINK: ${{ secrets.MAC_CSC_LINK }}
+          MAC_CSC_KEY_PASSWORD: ${{ secrets.MAC_CSC_KEY_PASSWORD }}
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLE_APP_SPECIFIC_PASSWORD }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+          WINDOWS_CSC_LINK: ${{ secrets.WINDOWS_CSC_LINK }}
+          WINDOWS_CSC_KEY_PASSWORD: ${{ secrets.WINDOWS_CSC_KEY_PASSWORD }}
+      - run: node node_modules/electron/install.js
+      - run: dotnet restore backend/MsgCommander.Host --locked-mode
+      - run: dotnet restore tests/MsgCommander.TestHost --locked-mode
+      - run: npm run format:check
+      - run: npm test
+      - run: npm run build
+      - name: Enable Chromium's sandbox on the Linux runner
+        if: runner.os == 'Linux'
+        run: |
+          sudo chown root:root node_modules/electron/dist/chrome-sandbox
+          sudo chmod 4755 node_modules/electron/dist/chrome-sandbox
+      - name: Desktop integration tests (Linux)
+        if: runner.os == 'Linux'
+        run: xvfb-run --auto-servernum npm run test:desktop
+      - name: Desktop integration tests
+        if: runner.os != 'Linux'
+        run: npm run test:desktop
+      - run: npm run package -- ${{ matrix.target }}
+        env:
+          COMMANDER_RELEASE: ${{ inputs.release && '1' || '0' }}
+          CSC_IDENTITY_AUTO_DISCOVERY: ${{ inputs.release && 'true' || 'false' }}
+          CSC_LINK: ${{ inputs.release && (runner.os == 'macOS' && secrets.MAC_CSC_LINK || secrets.WINDOWS_CSC_LINK) || '' }}
+          CSC_KEY_PASSWORD: ${{ inputs.release && (runner.os == 'macOS' && secrets.MAC_CSC_KEY_PASSWORD || secrets.WINDOWS_CSC_KEY_PASSWORD) || '' }}
+          APPLE_ID: ${{ inputs.release && secrets.APPLE_ID || '' }}
+          APPLE_APP_SPECIFIC_PASSWORD: ${{ inputs.release && secrets.APPLE_APP_SPECIFIC_PASSWORD || '' }}
+          APPLE_TEAM_ID: ${{ inputs.release && secrets.APPLE_TEAM_ID || '' }}
+      - name: Enable the packaged Chromium sandbox on the Linux runner
+        if: runner.os == 'Linux'
+        run: |
+          sudo chown root:root release/linux-unpacked/chrome-sandbox
+          sudo chmod 4755 release/linux-unpacked/chrome-sandbox
+      - name: Packaged launch (Linux)
+        if: runner.os == 'Linux'
+        run: xvfb-run --auto-servernum npm run test:desktop
+        env: { COMMANDER_PACKAGED: '1' }
+      - name: Packaged launch
+        if: runner.os != 'Linux'
+        run: npm run test:desktop
+        env: { COMMANDER_PACKAGED: '1' }
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Msg-Commander-${{ matrix.target }}
+          path: |
+            release/*.dmg
+            release/*.zip
+            release/*.AppImage
+            release/*.exe
+            release/latest*.yml
+            release/*.blockmap
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: Desktop-test-results-${{ matrix.target }}
+          path: test-results/
+          if-no-files-found: ignore

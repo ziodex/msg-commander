@@ -1,0 +1,10 @@
+name: msg-commander-eventgrid-contract
+services:
+  fixture:
+    image: node:22-alpine
+    working_dir: /fixture
+    command: ['node', 'server.mjs']
+    ports:
+      - '127.0.0.1:5302:5302'
+    volumes:
+      - ./server.mjs:/fixture/server.mjs:ro

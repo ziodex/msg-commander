@@ -1,0 +1,17 @@
+name: msg-commander-eventhubs
+services:
+  eventhubs:
+    image: mcr.microsoft.com/azure-messaging/eventhubs-emulator:latest
+    ports:
+      - '127.0.0.1:5673:5672'
+      - '127.0.0.1:5301:5300'
+    environment:
+      ACCEPT_EULA: ${ACCEPT_EULA:?Review the emulator license and set ACCEPT_EULA=Y}
+      BLOB_SERVER: azurite
+      METADATA_SERVER: azurite
+    volumes:
+      - ./config.json:/Eventhubs_Emulator/ConfigFiles/Config.json:ro
+    depends_on:
+      - azurite
+  azurite:
+    image: mcr.microsoft.com/azure-storage/azurite:latest

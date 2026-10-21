@@ -1,0 +1,47 @@
+{
+	"UserConfig": {
+		"Namespaces": [
+			{
+				"Name": "sbemulatorns",
+				"Queues": [
+					{
+						"Name": "desktop-messages",
+						"Properties": {
+							"DefaultMessageTimeToLive": "PT1H",
+							"LockDuration": "PT1M",
+							"MaxDeliveryCount": 5,
+							"RequiresSession": false
+						}
+					},
+					{
+						"Name": "desktop-sessions",
+						"Properties": {
+							"DefaultMessageTimeToLive": "PT1H",
+							"LockDuration": "PT1M",
+							"MaxDeliveryCount": 5,
+							"RequiresSession": true
+						}
+					}
+				],
+				"Topics": [
+					{
+						"Name": "desktop-events",
+						"Properties": { "DefaultMessageTimeToLive": "PT1H" },
+						"Subscriptions": [
+							{
+								"Name": "all",
+								"Properties": {
+									"DefaultMessageTimeToLive": "PT1H",
+									"LockDuration": "PT1M",
+									"MaxDeliveryCount": 5,
+									"RequiresSession": false
+								}
+							}
+						]
+					}
+				]
+			}
+		],
+		"Logging": { "Type": "Console" }
+	}
+}

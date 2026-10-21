@@ -1,0 +1,73 @@
+{
+	"name": "msg-commander",
+	"version": "0.63.0",
+	"private": true,
+	"description": "Cross-platform desktop workspace for Azure messaging",
+	"author": "Msg Commander contributors",
+	"main": "out/main/index.js",
+	"scripts": {
+		"dev": "npm run backend:build && electron-vite dev",
+		"start": "electron-vite preview",
+		"backend:build": "dotnet build backend/MsgCommander.Host -c Debug --nologo",
+		"backend:publish": "node scripts/publish-backend.mjs",
+		"typecheck": "vue-tsc --noEmit",
+		"build": "npm run typecheck && electron-vite build",
+		"backend:test-build": "dotnet build tests/MsgCommander.TestHost -c Debug --nologo",
+		"test": "npm run backend:build && npm run backend:test-build && vitest run",
+		"test:desktop": "playwright test",
+		"emulator:up": "node scripts/servicebus-emulator.mjs up",
+		"emulator:down": "node scripts/servicebus-emulator.mjs down",
+		"test:emulator": "npm run backend:build && vitest run --config vitest.emulator.config.ts",
+		"test:emulator:desktop": "playwright test tests/desktop/emulator.spec.ts",
+		"test:emulator:recovery": "npm run backend:build && vitest run --config vitest.emulator.config.ts tests/emulator/recovery.test.ts",
+		"test:emulator:soak": "playwright test tests/desktop/beta-soak-emulator.spec.ts",
+		"check": "npm run test && npm run build && npm run test:desktop",
+		"package": "npm run build && node scripts/package.mjs",
+		"package:dir": "npm run package -- --dir",
+		"format": "npm run format:prettier && npm run format:backend",
+		"icons": "node scripts/generate-icon.mjs",
+		"format:prettier": "prettier --write .",
+		"format:backend": "dotnet format whitespace backend/MsgCommander.slnx --no-restore --verbosity minimal",
+		"format:check": "npm run format:check:prettier && npm run format:check:backend",
+		"format:check:prettier": "prettier --check .",
+		"format:check:backend": "dotnet format whitespace backend/MsgCommander.slnx --no-restore --verify-no-changes --verbosity minimal"
+	},
+	"engines": {
+		"node": ">=22.12.0"
+	},
+	"dependencies": {
+		"@lucide/vue": "^1.55.0",
+		"@vueuse/core": "^15.0.0",
+		"class-variance-authority": "^0.7.1",
+		"clsx": "^2.1.1",
+		"electron-updater": "^6.8.9",
+		"pinia": "^4.0.3",
+		"reka-ui": "^2.11.0",
+		"tailwind-merge": "^3.7.0",
+		"vue": "^3.5.43",
+		"zod": "^4.6.5"
+	},
+	"devDependencies": {
+		"@axe-core/playwright": "^4.14.0",
+		"@playwright/test": "^1.64.0",
+		"@tailwindcss/vite": "^4.3.3",
+		"@types/node": "^22.20.5",
+		"@vitejs/plugin-vue": "^6.0.10",
+		"electron": "^44.7.0",
+		"electron-builder": "^26.15.3",
+		"electron-vite": "^5.0.0",
+		"playwright": "^1.64.0",
+		"prettier": "^3.9.10",
+		"tailwindcss": "^4.3.3",
+		"typescript": "^5.9.3",
+		"vite": "^7.3.7",
+		"vitest": "^4.1.11",
+		"vue-tsc": "^3.3.12",
+		"yaml": "^2.9.1"
+	},
+	"overrides": {
+		"global-agent": "4.1.3"
+	},
+	"desktopName": "msg-commander",
+	"license": "MIT"
+}

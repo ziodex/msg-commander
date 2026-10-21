@@ -1,0 +1,12 @@
+global using MsgCommander.Application.Common;
+global using MsgCommander.Application.AccessPolicies;
+global using MsgCommander.Application.Relay.Management;
+global using MsgCommander.Application.Relay.Hybrid;
+global using MsgCommander.Contracts.Relay.Management;
+global using MsgCommander.Contracts.Relay.Hybrid;
+global using MsgCommander.Contracts.Relay.Configuration;
+global using MsgCommander.Contracts.Common;
+global using MsgCommander.Contracts.Connections;
+global using MsgCommander.Contracts.AccessPolicies;
+global using MsgCommander.Application.Relay.Gateways;
+global using MsgCommander.Application.Relay.Configuration;

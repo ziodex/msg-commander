@@ -1,0 +1,18 @@
+.DS_Store
+**/bin/
+**/obj/
+artifacts/
+node_modules/
+.env
+.env.*
+!.env.example
+__pycache__/
+out/
+release/
+test-results/
+playwright-report/
+
+# Local editor, assistant and preview state.
+.agents/
+.impeccable/
+skills-lock.json

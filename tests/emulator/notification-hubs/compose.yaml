@@ -1,0 +1,10 @@
+name: msg-commander-notificationhubs-contract
+services:
+  fixture:
+    image: node:22-alpine
+    working_dir: /fixture
+    command: ['node', 'server.mjs']
+    ports:
+      - '127.0.0.1:5303:5303'
+    volumes:
+      - ./server.mjs:/fixture/server.mjs:ro

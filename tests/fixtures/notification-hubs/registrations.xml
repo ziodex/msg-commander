@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+ <link rel="next" href="https://never-follow.example.invalid/registrations" />
+ <entry><content type="application/xml"><AppleRegistrationDescription xmlns="http://schemas.microsoft.com/netservices/2010/10/servicebus/connect">
+  <RegistrationId>source-apple</RegistrationId><ExpirationTime>2027-01-01T00:00:00Z</ExpirationTime><Tags>copy:tag,customer:123</Tags><DeviceToken>BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB</DeviceToken><FutureProperty>&lt;script&gt;window.fileExecuted=true&lt;/script&gt;</FutureProperty>
+ </AppleRegistrationDescription></content></entry>
+ <entry><content type="application/xml"><FcmV1TemplateRegistrationDescription xmlns="http://schemas.microsoft.com/netservices/2010/10/servicebus/connect">
+  <RegistrationId>source-template</RegistrationId><Tags>copy:tag,news</Tags><FcmV1RegistrationId>copy-template-token</FcmV1RegistrationId><BodyTemplate><![CDATA[{"message":{"notification":{"title":"$(title)","body":"$(message)"}}}]]></BodyTemplate><TemplateName>sample</TemplateName><PushVariables>{"locale":"en"}</PushVariables>
+ </FcmV1TemplateRegistrationDescription></content></entry>
+ <entry><content type="application/xml"><FutureRegistrationDescription xmlns="http://schemas.microsoft.com/netservices/2010/10/servicebus/connect">
+  <RegistrationId>source-future</RegistrationId><Tags>future</Tags><FutureHandle>future-token</FutureHandle>
+ </FutureRegistrationDescription></content></entry>
+</feed>

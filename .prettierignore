@@ -1,0 +1,14 @@
+node_modules/
+out/
+release/
+artifacts/
+**/bin/
+**/obj/
+package-lock.json
+**/packages.lock.json
+.agents/
+.impeccable/
+skills-lock.json
+test-results/
+playwright-report/
+tests/fixtures/body-tools/
