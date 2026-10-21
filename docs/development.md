@@ -11,6 +11,17 @@ npm run dev
 
 `dev` builds the backend and starts Electron/Vite. Renderer changes reload through Vite; rebuild backend changes with `npm run backend:build`. `npm start` previews the existing desktop build.
 
+## Dependency maintenance
+
+`package.json` records npm's install-script approvals for both esbuild versions and macOS's optional `fsevents`. The `electron-winstaller` script is denied because our Windows target is NSIS, not Squirrel. Review the scripts and update the pinned approvals when these dependencies change; `npm ci --strict-allow-scripts` checks for missing approvals.
+
+The stable Electron packaging and updater dependencies still pull in deprecated helpers. The overrides use `@electron/asar` 4 (compatible with our Node.js minimum) and two small local adapters:
+
+- `vendor/deep-equal` supplies Node's `isDeepStrictEqual` for `electron-updater`'s cached update metadata. It is intentionally scoped to this consumer; it is not a general replacement for Lodash equality semantics.
+- `vendor/temp-rimraf` supplies Node's `fs.rm`/`rmSync` for `temp`'s literal-path cleanup, preserving its callback API and retry option. It does not implement rimraf's globbing API.
+
+The adapters are direct dependencies so npm resolves their file paths from the project root. `.npmrc` sets `install-links=true` to install copies that can be included in packaged apps. Keep this setting for lockfile updates and clean installs. The dependency compatibility tests cover update-cache reuse, temporary-file cleanup and ASAR consumers. Remove the adapters and overrides when upstream dependencies no longer require them.
+
 ## Repository layout
 
 | Path                                  | Purpose                                                                          |

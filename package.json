@@ -41,6 +41,7 @@
 		"class-variance-authority": "^0.7.1",
 		"clsx": "^2.1.1",
 		"electron-updater": "^6.8.9",
+		"lodash.isequal": "file:vendor/deep-equal",
 		"pinia": "^4.0.3",
 		"reka-ui": "^2.11.0",
 		"tailwind-merge": "^3.7.0",
@@ -58,6 +59,7 @@
 		"electron-vite": "^5.0.0",
 		"playwright": "^1.64.0",
 		"prettier": "^3.9.10",
+		"rimraf": "file:vendor/temp-rimraf",
 		"tailwindcss": "^4.3.3",
 		"typescript": "^5.9.3",
 		"vite": "^7.3.7",
@@ -66,7 +68,20 @@
 		"yaml": "^2.9.1"
 	},
 	"overrides": {
-		"global-agent": "4.1.3"
+		"global-agent": "4.1.3",
+		"@electron/asar": "4.3.1",
+		"electron-updater": {
+			"lodash.isequal": "$lodash.isequal"
+		},
+		"temp": {
+			"rimraf": "$rimraf"
+		}
+	},
+	"allowScripts": {
+		"electron-winstaller": false,
+		"esbuild@0.25.12": true,
+		"esbuild@0.28.2": true,
+		"fsevents@2.3.3": true
 	},
 	"desktopName": "msg-commander",
 	"license": "MIT"

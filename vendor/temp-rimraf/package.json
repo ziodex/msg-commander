@@ -1,0 +1,8 @@
+{
+	"name": "@msg-commander/temp-rimraf",
+	"version": "1.0.0",
+	"private": true,
+	"description": "Node.js removal adapter for temp's callback and synchronous cleanup",
+	"main": "index.cjs",
+	"license": "MIT"
+}

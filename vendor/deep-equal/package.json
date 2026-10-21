@@ -1,0 +1,8 @@
+{
+	"name": "@msg-commander/deep-equal",
+	"version": "1.0.0",
+	"private": true,
+	"description": "Node.js deep equality for electron-updater's cached update metadata",
+	"main": "index.cjs",
+	"license": "MIT"
+}
